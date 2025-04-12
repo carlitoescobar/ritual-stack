@@ -1,0 +1,7 @@
+piper-venv/
+__pycache__/
+*.gguf
+*.wav
+*.log
+*.tmp
+samples/

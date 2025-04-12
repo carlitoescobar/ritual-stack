@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Oracle came online today.",
+    "timestamp": "2025-04-12T01:19:20.449243",
+    "metadata": {
+      "tag": "milestone"
+    }
+  },
+  {
+    "content": "Installed Whisper.cpp and Piper.",
+    "timestamp": "2025-04-12T01:19:20.449476",
+    "metadata": {}
+  },
+  {
+    "content": "Oracle came online today.",
+    "timestamp": "2025-04-12T01:24:03.647241",
+    "metadata": {
+      "tag": "milestone"
+    }
+  },
+  {
+    "content": "Installed Whisper.cpp and Piper.",
+    "timestamp": "2025-04-12T01:24:03.647702",
+    "metadata": {}
+  },
+  {
+    "content": "Oracle came online today.",
+    "timestamp": "2025-04-12T01:32:47.110103",
+    "metadata": {
+      "tag": "milestone"
+    }
+  },
+  {
+    "content": "Installed Whisper.cpp and Piper.",
+    "timestamp": "2025-04-12T01:32:47.111249",
+    "metadata": {}
+  }
+]

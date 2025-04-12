@@ -1,0 +1,4 @@
+🧙 Setting up Oracle's Ritual Stack...
+🔁 Virtual environment already exists.
+⚠️ No requirements.txt found. Skipping Python package install.
+✨ Ritual complete. The Oracle awakens.
