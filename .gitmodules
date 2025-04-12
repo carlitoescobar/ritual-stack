@@ -1,9 +1,9 @@
 [submodule "llama.cpp"]
 	path = llama.cpp
-	url = https://github.com/ggerganov/llama.cpp
+	url = https://github.com/ggerganov/llama.cpp.git
 [submodule "piper"]
 	path = piper
-	url = https://github.com/rhasspy/piper
+	url = https://github.com/rhasspy/piper.git
 [submodule "whisper.cpp"]
 	path = whisper.cpp
-	url = https://github.com/ggerganov/whisper.cpp
+	url = https://github.com/ggerganov/whisper.cpp.git
