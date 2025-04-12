@@ -1,7 +1,46 @@
+# 🔮 Oracle's Ritual Stack Ignore Rules
+
+# Virtual environments
 piper-venv/
+
+# Compiled files
+*.pyc
 __pycache__/
+
+# Editor/IDE artifacts
+.vscode/
+.idea/
+*.swp
+
+# Model & voice artifacts
 *.gguf
-*.wav
+*.onnx
+*.pt
+*.bin
+
+# Large TTS/Whisper output
+samples/*.wav
+samples/*.mp3
+
+# Logs and dumps
 *.log
 *.tmp
-samples/
+*.bak
+
+# Memory & runtime data
+memory/memory_store.json
+
+# Build directories
+llama.cpp/build/
+whisper.cpp/build/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Git backup files
+*.orig
+
+# Ignore nested git repos (handled as submodules or vendored)
+llama.cpp/.git
+wh
