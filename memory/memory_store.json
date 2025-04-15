@@ -68,5 +68,26 @@
     "content": "Installed Whisper.cpp and Piper.",
     "timestamp": "2025-04-15T05:07:53.754341",
     "metadata": {}
+  },
+  {
+    "content": "Q: how is an oracle?\nA: ",
+    "timestamp": "2025-04-15T07:08:15.759020",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello?\nA: ",
+    "timestamp": "2025-04-15T07:08:55.183707",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is the date?\nA: ",
+    "timestamp": "2025-04-15T07:09:09.121700",
+    "metadata": {
+      "source": "oracle.py"
+    }
   }
 ]
