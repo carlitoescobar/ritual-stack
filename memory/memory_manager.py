@@ -7,7 +7,7 @@ MEMORY_FILE = os.path.join(os.path.dirname(__file__), "memory_store.json")
 
 class MemoryManager:
     def __init__(self, filepath="memory/memory.json"):
-       	self.filepath = filepath
+        self.filepath = filepath
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
         self._load_memory()
 
@@ -33,6 +33,10 @@ class MemoryManager:
         }
         self.memories.append(entry)
         self._save_memory()
+
+    def save_entry(self, content: str, metadata: Optional[Dict] = None):
+        # Wrapper to match oracle.py usage
+        self.add_memory(content=content, metadata=metadata)
 
     def search_memory(self, query: str) -> List[Dict]:
         return [m for m in self.memories if query.lower() in m["content"].lower()]
