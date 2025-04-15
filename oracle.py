@@ -1,31 +1,39 @@
-import subprocess
 import datetime
 import json
 import argparse
-
+from llama_cpp import Llama
 from memory.memory_manager import MemoryManager
 
-MODEL_PATH = "models/mistral-7b-q4_k_m.gguf"
-LLAMA_EXEC = "./llama.cpp/build/bin/llama-cli"
+MODEL_PATH = "models/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
+llm = Llama(model_path=MODEL_PATH, n_ctx=2048, n_threads=12, n_batch=64, verbose=True)
 
 def ask_llama(prompt):
-    formatted_prompt = f"[INST] {prompt.strip()} [/INST]"
-    result = subprocess.run(
-        [
-            LLAMA_EXEC,
-            "-m", MODEL_PATH,
-            "-p", formatted_prompt,
-            "--n-predict", "256",
-            "--temp", "0.8",
-            "--interactive-start", "false"
-        ],
-        capture_output=True,
-        text=True
-    )
-    return result.stdout.strip()
+    print("[DEBUG] Sending prompt to model...")
+    try:
+        start = datetime.datetime.now()
+
+        result = llm(
+            prompt=prompt,
+            max_tokens=128,
+            temperature=0.7,
+            stop=["</s>"]
+        )
+
+        print("[DEBUG] Raw result from model:")
+        print(json.dumps(result, indent=2))
+
+        response = result.get("choices", [{}])[0].get("text", "[Oracle returned no text response]").strip()
+        duration = (datetime.datetime.now() - start).total_seconds()
+        print(f"\n[DEBUG] Response received in {duration:.2f} seconds.")
+        return response
+
+    except Exception as e:
+        print(f"[ERROR] Failed to get response from model: {e}")
+        return "[Oracle failed to respond]"
 
 def speak(text):
-    subprocess.run(["python3", "scripts/say.py", text])  # Assuming say.py wraps Piper TTS
+    import subprocess
+    subprocess.run(["python3", "scripts/say.py", text])
 
 def remember(memory, prompt, response):
     memory.save_entry(
@@ -52,6 +60,7 @@ def main():
     while True:
         try:
             if args.voice:
+                import subprocess
                 user_input = subprocess.check_output(["python3", "scripts/listen.py"]).decode().strip()
                 print(f"You said: {user_input}")
             else:
@@ -73,7 +82,7 @@ def main():
             log_to_file(user_input, response, log_file)
 
         except KeyboardInterrupt:
-            print("\n\u26A1 Oracle silenced.")
+            print("\n⚡ Oracle silenced.")
             break
 
 if __name__ == "__main__":

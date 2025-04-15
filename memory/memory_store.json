@@ -89,5 +89,103 @@
     "metadata": {
       "source": "oracle.py"
     }
+  },
+  {
+    "content": "Q: what is the first rule of AI?\nA: ",
+    "timestamp": "2025-04-15T07:25:12.462232",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hi\nA: ",
+    "timestamp": "2025-04-15T07:26:44.963284",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is the first law of AI?\nA: ",
+    "timestamp": "2025-04-15T07:30:23.286571",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is first law of AI?\nA: error: invalid argument: --interactive-start",
+    "timestamp": "2025-04-15T07:33:00.364862",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: ok?\nA: error: invalid argument: --interactive-start",
+    "timestamp": "2025-04-15T07:33:11.458139",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is a downer?\nA: [Timed out waiting for model response]",
+    "timestamp": "2025-04-15T08:18:26.659068",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is the capital of spain?\nA: [Timed out waiting for model response]",
+    "timestamp": "2025-04-15T08:22:04.053968",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is the capital of spain?\nA: [Timed out waiting for model response]",
+    "timestamp": "2025-04-15T08:25:01.309961",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is hell?\nA: Hell is a concept in various religions, particularly in Christianity, Islam, and some forms of Buddhism, that refers to a place or state of suffering, punishment, and torment for souls or spirits of the dead who are believed to have lived evil or sinful lives. The specific beliefs about hell vary among different religious traditions, but generally, it is considered to be a place of eternal damnation, separation from God, and suffering. The exact nature and location of hell are often described in symbolic or metaphorical terms, and there is ongoing debate and interpretation among scholars and theologians. Some people believe in hell as a literal place, while others see it as a metaphor for the suffering and consequences that can result from living an immoral or unrighteous life.",
+    "timestamp": "2025-04-15T15:35:42.421905",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: > what is the capital of texas?\nA: The capital city of the U.S. state of Texas is Austin. Austin is located in the Central Texas region and was founded in 1839. It is named after Stephen F. Austin, who was known as the \"Father of Texas\" for his role in the early settlement of the area. Austin is home to many universities, museums, and cultural institutions, and it is known for its vibrant music scene and outdoor activities.",
+    "timestamp": "2025-04-15T18:15:47.928618",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is your knowledge cutoff?\nA: My knowledge cutoff is 2021. I have access to information up to this year. I can provide information on historical events, scientific concepts, literary works, and other topics up to the present day. However, I may not be able to provide the latest developments or cutting-edge research in every field, as my knowledge is based on the information available to me up until my training and the data I have been given.",
+    "timestamp": "2025-04-15T18:47:27.565126",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello\nA: [Oracle failed to respond]",
+    "timestamp": "2025-04-15T20:50:53.517744",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello\nA: [Oracle failed to respond]",
+    "timestamp": "2025-04-15T20:56:38.654708",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello\nA: [Oracle failed to respond]",
+    "timestamp": "2025-04-15T21:46:20.041346",
+    "metadata": {
+      "source": "oracle.py"
+    }
   }
 ]
