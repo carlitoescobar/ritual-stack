@@ -9,8 +9,16 @@ MODEL_PATH = "models/mistral-7b-q4_k_m.gguf"
 LLAMA_EXEC = "./llama.cpp/build/bin/llama-cli"
 
 def ask_llama(prompt):
+    formatted_prompt = f"[INST] {prompt.strip()} [/INST]"
     result = subprocess.run(
-        [LLAMA_EXEC, "-m", MODEL_PATH, "-p", prompt],
+        [
+            LLAMA_EXEC,
+            "-m", MODEL_PATH,
+            "-p", formatted_prompt,
+            "--n-predict", "256",
+            "--temp", "0.8",
+            "--interactive-start", "false"
+        ],
         capture_output=True,
         text=True
     )
