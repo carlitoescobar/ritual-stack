@@ -6,7 +6,7 @@ import argparse
 from memory_manager import MemoryManager  # Assumes it's in the same dir
 
 MODEL_PATH = "models/mistral-7b-q4_k_m.gguf"
-LLAMA_EXEC = "./llama.cpp/main"  # Path to llama.cpp compiled binary
+LLAMA_EXEC = "./llama.cpp/build/bin/llama-cli"
 
 def ask_llama(prompt):
     result = subprocess.run(
