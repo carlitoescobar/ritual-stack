@@ -56,5 +56,17 @@
     "content": "The Oracle received a message.",
     "timestamp": "2025-04-12T18:55:19.978426",
     "metadata": {}
+  },
+  {
+    "content": "Oracle came online today.",
+    "timestamp": "2025-04-15T05:07:53.754169",
+    "metadata": {
+      "tag": "milestone"
+    }
+  },
+  {
+    "content": "Installed Whisper.cpp and Piper.",
+    "timestamp": "2025-04-15T05:07:53.754341",
+    "metadata": {}
   }
 ]

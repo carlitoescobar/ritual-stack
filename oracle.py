@@ -3,7 +3,7 @@ import datetime
 import json
 import argparse
 
-from memory_manager import MemoryManager  # Assumes it's in the same dir
+from memory.memory_manager import MemoryManager
 
 MODEL_PATH = "models/mistral-7b-q4_k_m.gguf"
 LLAMA_EXEC = "./llama.cpp/build/bin/llama-cli"
