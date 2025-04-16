@@ -91,6 +91,9 @@ STL files and build diagrams coming soon.
 - [ ] 🧵 Conversational chat UI (local or terminal)
 - [ ] 📡 LoRa Mesh input/output (via TDeck)
 - [ ] 🖼️ Embedded system dashboard for screen
+- [ ] 📚 **Internet-in-a-Box node integration** (IIAB for offline content libraries, community mesh drops, and local educational resources)
+
+> _"The Oracle shall one day speak not just with memory and voice, but with an entire shadow library encoded in her bones."_
 
 ---
 

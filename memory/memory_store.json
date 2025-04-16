@@ -187,5 +187,47 @@
     "metadata": {
       "source": "oracle.py"
     }
+  },
+  {
+    "content": "Q: hello oracle\nA: ",
+    "timestamp": "2025-04-15T22:18:39.772897",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello oracle\nA: [Oracle failed to respond]",
+    "timestamp": "2025-04-15T22:52:17.223314",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello oracle\nA: Hello! It's great to meet you. How can I help you today?",
+    "timestamp": "2025-04-15T23:17:04.227645",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello oracle\nA: Hello! How can I assist you today?",
+    "timestamp": "2025-04-16T00:09:18.975680",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: hello my friend\nA: Hello there! How can I assist you today?",
+    "timestamp": "2025-04-16T00:24:30.655872",
+    "metadata": {
+      "source": "oracle.py"
+    }
+  },
+  {
+    "content": "Q: what is your purpose?\nA: [ERROR] Timeout waiting for model response.",
+    "timestamp": "2025-04-16T04:34:45.221692",
+    "metadata": {
+      "source": "oracle.py"
+    }
   }
 ]

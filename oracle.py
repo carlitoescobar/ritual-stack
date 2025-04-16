@@ -1,38 +1,55 @@
 import datetime
 import json
 import argparse
-from llama_cpp import Llama
+import subprocess
 from memory.memory_manager import MemoryManager
 
-MODEL_PATH = "models/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
-llm = Llama(model_path=MODEL_PATH, n_ctx=2048, n_threads=12, n_batch=64, verbose=True)
+MODEL_PATH = "models/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
 def ask_llama(prompt):
-    print("[DEBUG] Sending prompt to model...")
+    print("[DEBUG] Invoking llama-cli subprocess...")
     try:
-        start = datetime.datetime.now()
-
-        result = llm(
-            prompt=prompt,
-            max_tokens=128,
-            temperature=0.7,
-            stop=["</s>"]
+        process = subprocess.Popen(
+            [
+                "./llama.cpp/build/bin/llama-cli",
+                "--no-warmup",
+                "--log-disable",
+                "--threads", "12",
+                "--n-predict", "64",
+                "--ctx-size", "2048",
+                "--batch-size", "512",
+                "-m", MODEL_PATH,
+                "-p", prompt.strip(),
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True
         )
 
-        print("[DEBUG] Raw result from model:")
-        print(json.dumps(result, indent=2))
+        try:
+            stdout, stderr = process.communicate(timeout=60)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            return "[ERROR] Timeout waiting for model response."
 
-        response = result.get("choices", [{}])[0].get("text", "[Oracle returned no text response]").strip()
-        duration = (datetime.datetime.now() - start).total_seconds()
-        print(f"\n[DEBUG] Response received in {duration:.2f} seconds.")
-        return response
+        output = stdout + "\n" + stderr
+        print("[DEBUG] Raw output:\n", output)
+
+        # Attempt to extract response following prompt line
+        lines = output.splitlines()
+        for i, line in enumerate(lines):
+            if prompt.strip() in line:
+                response = "\n".join(lines[i + 1:]).strip()
+                break
+        else:
+            response = output.strip()
+
+        return response or "[Oracle returned no response]"
 
     except Exception as e:
-        print(f"[ERROR] Failed to get response from model: {e}")
-        return "[Oracle failed to respond]"
+        return f"[ERROR] Exception occurred: {str(e)}"
 
 def speak(text):
-    import subprocess
     subprocess.run(["python3", "scripts/say.py", text])
 
 def remember(memory, prompt, response):
@@ -60,7 +77,6 @@ def main():
     while True:
         try:
             if args.voice:
-                import subprocess
                 user_input = subprocess.check_output(["python3", "scripts/listen.py"]).decode().strip()
                 print(f"You said: {user_input}")
             else:
@@ -82,7 +98,7 @@ def main():
             log_to_file(user_input, response, log_file)
 
         except KeyboardInterrupt:
-            print("\n⚡ Oracle silenced.")
+            print("\n\u26A1 Oracle silenced.")
             break
 
 if __name__ == "__main__":
