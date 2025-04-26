@@ -5,47 +5,41 @@ import subprocess
 from memory.memory_manager import MemoryManager
 
 MODEL_PATH = "models/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+from llama_cpp import Llama
 
-def ask_llama(prompt):
-    print("[DEBUG] Invoking llama-cli subprocess...")
+# Initialize Llama model for streaming
+llm = Llama(
+    model_path=MODEL_PATH,
+    n_ctx=2048,
+    n_threads=12,
+    n_batch=512,
+    verbose=False,
+    chat_format="mistral-instruct"
+)
+
+def ask_llama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
+    """
+    Stream tokens from the Llama model for the given prompt.
+    Returns the full response text.
+    """
     try:
-        process = subprocess.Popen(
-            [
-                "./llama.cpp/build/bin/llama-cli",
-                "--no-warmup",
-                "--log-disable",
-                "--threads", "12",
-                "--n-predict", "64",
-                "--ctx-size", "2048",
-                "--batch-size", "512",
-                "-m", MODEL_PATH,
-                "-p", prompt.strip(),
+        response = ""
+        # Begin streaming chat completion
+        for event in llm.create_chat_completion(
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt.strip()}
             ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            universal_newlines=True
-        )
-
-        try:
-            stdout, stderr = process.communicate(timeout=60)
-        except subprocess.TimeoutExpired:
-            process.kill()
-            return "[ERROR] Timeout waiting for model response."
-
-        output = stdout + "\n" + stderr
-        print("[DEBUG] Raw output:\n", output)
-
-        # Attempt to extract response following prompt line
-        lines = output.splitlines()
-        for i, line in enumerate(lines):
-            if prompt.strip() in line:
-                response = "\n".join(lines[i + 1:]).strip()
-                break
-        else:
-            response = output.strip()
-
+            max_tokens=max_tokens,
+            temperature=temperature,
+            stream=True,
+        ):
+            # Extract token content
+            token = event.get("choices", [{}])[0].get("delta", {}).get("content", "")
+            if token:
+                print(token, end="", flush=True)
+                response += token
         return response or "[Oracle returned no response]"
-
     except Exception as e:
         return f"[ERROR] Exception occurred: {str(e)}"
 
@@ -86,8 +80,11 @@ def main():
                 print("\U0001F44B Farewell.")
                 break
 
+            # Stream and display Oracle response
+            print("\nOracle: ", end="", flush=True)
             response = ask_llama(user_input)
-            print(f"\nOracle: {response}")
+            # Ensure newline after streaming tokens
+            print()
 
             if not args.silent:
                 speak(response)
