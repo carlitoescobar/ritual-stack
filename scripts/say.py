@@ -3,7 +3,8 @@
 import sys
 import os
 import tempfile
-import pygame
+from pydub import AudioSegment
+from pydub.playback import play
 from piper import PiperVoice
 
 def say(text):
@@ -26,19 +27,9 @@ def say(text):
         with open(temp_file.name, 'wb') as f:
             voice.synthesize(text, f)
         
-        # Initialize pygame mixer
-        pygame.mixer.init()
-        
         # Load and play the audio
-        pygame.mixer.music.load(temp_file.name)
-        pygame.mixer.music.play()
-        
-        # Wait for the audio to finish playing
-        while pygame.mixer.music.get_busy():
-            pygame.time.Clock().tick(10)
-        
-        # Clean up pygame
-        pygame.mixer.quit()
+        audio = AudioSegment.from_wav(temp_file.name)
+        play(audio)
         
         # Clean up the temporary file
         os.unlink(temp_file.name)
