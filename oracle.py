@@ -2,9 +2,12 @@ import datetime
 import json
 import argparse
 import subprocess
+import time
+import sys
 from memory.memory_manager import MemoryManager
 
-MODEL_PATH = "models/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+# Updated model path for Dolphin Llama 3
+MODEL_PATH = "models/dolphin_llama3_quantized.gguf"
 from llama_cpp import Llama
 
 # Initialize Llama model for streaming
@@ -14,7 +17,7 @@ llm = Llama(
     n_threads=12,
     n_batch=512,
     verbose=False,
-    chat_format="mistral-instruct"
+    chat_format="dolphin-instruct"
 )
 
 def ask_llama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
@@ -39,6 +42,10 @@ def ask_llama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
             if token:
                 print(token, end="", flush=True)
                 response += token
+                # Add a spinner effect
+                sys.stdout.write("\r" + " " * 50 + "\r")
+                sys.stdout.write("Thinking... " + "|/-\\"[int(time.time() * 4) % 4])
+                sys.stdout.flush()
         return response or "[Oracle returned no response]"
     except Exception as e:
         return f"[ERROR] Exception occurred: {str(e)}"
