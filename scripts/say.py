@@ -19,14 +19,16 @@ def say(text):
         voice = PiperVoice.load(voice_path, config_path)
         
         # Create a temporary WAV file
-        with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as temp_file:
-            # Synthesize speech to the temporary file
-            voice.synthesize(text, temp_file)
-            temp_file.flush()
-            
-            # Play the audio using aplay
-            subprocess.run(['aplay', temp_file.name], check=True)
-            
+        temp_file = tempfile.NamedTemporaryFile(suffix='.wav', delete=False)
+        temp_file.close()
+        
+        # Synthesize speech to the temporary file
+        with open(temp_file.name, 'wb') as f:
+            voice.synthesize(text, f)
+        
+        # Play the audio using aplay
+        subprocess.run(['aplay', temp_file.name], check=True)
+        
         # Clean up the temporary file
         os.unlink(temp_file.name)
             
