@@ -14,6 +14,7 @@ def ask_ollama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
     """
     try:
         response = ""
+        first_token = True
         # Prepare the request to the Ollama API
         url = "http://localhost:11434/api/generate"
         data = {
@@ -30,10 +31,14 @@ def ask_ollama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
                     json_response = json.loads(line)
                     token = json_response.get("response", "")
                     if token:
+                        if first_token:
+                            # Clear the spinner and print the first token
+                            sys.stdout.write("\r" + " " * 50 + "\r")
+                            first_token = False
                         print(token, end="", flush=True)
                         response += token
-                    else:
-                        # Show spinner while waiting for response
+                    elif first_token:
+                        # Show spinner only while waiting for first token
                         sys.stdout.write("\r" + " " * 50 + "\r")
                         sys.stdout.write("Thinking... " + "|/-\\"[int(time.time() * 4) % 4])
                         sys.stdout.flush()
