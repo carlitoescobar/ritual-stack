@@ -30,15 +30,16 @@ def ask_ollama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
                     json_response = json.loads(line)
                     token = json_response.get("response", "")
                     if token:
-                        print(token, end="", flush=True)
+                        # Clear the spinner and print the token
+                        sys.stdout.write("\r" + " " * 50 + "\r")
+                        sys.stdout.write(token)
+                        sys.stdout.flush()
                         response += token
-                        # Add a spinner effect
+                    else:
+                        # Show spinner while waiting for response
                         sys.stdout.write("\r" + " " * 50 + "\r")
                         sys.stdout.write("Thinking... " + "|/-\\"[int(time.time() * 4) % 4])
                         sys.stdout.flush()
-            # Clear the spinner after response is complete
-            sys.stdout.write("\r" + " " * 50 + "\r")
-            sys.stdout.flush()
         return response or "[Oracle returned no response]"
     except Exception as e:
         # Clear the spinner in case of error
