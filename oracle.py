@@ -30,10 +30,7 @@ def ask_ollama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
                     json_response = json.loads(line)
                     token = json_response.get("response", "")
                     if token:
-                        # Clear the spinner and print the token
-                        sys.stdout.write("\r" + " " * 50 + "\r")
-                        sys.stdout.write(token)
-                        sys.stdout.flush()
+                        print(token, end="", flush=True)
                         response += token
                     else:
                         # Show spinner while waiting for response
