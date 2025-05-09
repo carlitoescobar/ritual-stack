@@ -1,5 +1,4 @@
 absl-py==2.1.0
-ace-tools @ file:///home/sandbox/.openai_internal/ace-tools
 aeppl==0.0.31
 aesara==2.7.3
 affine==2.4.0
@@ -59,7 +58,6 @@ databricks-sql-connector==0.9.1
 debugpy==1.8.9
 decorator==4.4.2
 defusedxml==0.7.1
-dlib==19.24.2
 dnspython==2.7.0
 docx2txt==0.8
 einops==0.3.2

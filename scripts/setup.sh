@@ -1,26 +1,24 @@
 #!/bin/bash
-echo "🧙 Setting up Oracle's Ritual Stack..."
+set -e
 
-# Pull submodules
-echo "🔗 Initializing Git submodules..."
-git submodule update --init --recursive
+echo "🔮 Summoning Oracle's Dependencies..."
+# Keep sudo session alive throughout the script
+sudo -v
 
-# Create and activate virtual environment
+# Install critical system packages silently
+echo "🛠 Installing system libraries (graphviz, build essentials)..."
+sudo apt-get update -y
+sudo apt-get install -y graphviz libgraphviz-dev build-essential python3-dev pkg-config
+
+echo "🧪 Activating the Python Virtual Environment..."
+# Create venv only if it doesn't exist
 if [ ! -d "piper-venv" ]; then
-  python3 -m venv piper-venv
-  echo "✅ Virtual environment created."
-else
-  echo "🔁 Virtual environment already exists."
+    python3 -m venv piper-venv
 fi
-
 source piper-venv/bin/activate
 
-# Install requirements
-if [ -f "requirements.txt" ]; then
-  pip install -r requirements.txt
-  echo "📦 Python dependencies installed."
-else
-  echo "⚠️ No requirements.txt found. Skipping Python package install."
-fi
+echo "📦 Installing Ritual Python packages from requirements.txt..."
+pip install --upgrade pip
+pip install -r requirements.txt
 
-echo "✨ Ritual complete. The Oracle awakens."
+echo "✨ Oracle's Ritual Stack is fully summoned and operational."

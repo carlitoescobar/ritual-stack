@@ -1,4 +1,0 @@
-[2025-04-15 16:17:04.228230]
-Q: hello oracle
-A: Hello! It's great to meet you. How can I help you today?
-

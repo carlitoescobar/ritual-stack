@@ -1,4 +1,0 @@
-[2025-04-15 01:22:04.054410]
-Q: what is the capital of spain?
-A: [Timed out waiting for model response]
-

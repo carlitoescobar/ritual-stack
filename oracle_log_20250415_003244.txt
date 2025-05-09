@@ -1,8 +1,0 @@
-[2025-04-15 00:33:00.365283]
-Q: what is first law of AI?
-A: error: invalid argument: --interactive-start
-
-[2025-04-15 00:33:11.458561]
-Q: ok?
-A: error: invalid argument: --interactive-start
-

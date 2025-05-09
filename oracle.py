@@ -52,25 +52,12 @@ def ask_ollama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
 def speak(text):
     subprocess.run(["python3", "scripts/say.py", text])
 
-def remember(memory, prompt, response):
-    memory.save_entry(
-        content=f"Q: {prompt}\nA: {response}",
-        metadata={"source": "oracle.py"}
-    )
-
-def log_to_file(prompt, response, log_file):
-    with open(log_file, "a") as f:
-        f.write(f"[{datetime.datetime.now()}]\nQ: {prompt}\nA: {response}\n\n")
-
 def main():
     parser = argparse.ArgumentParser(description="Oracle CLI")
     parser.add_argument("--silent", action="store_true", help="Disable TTS")
     parser.add_argument("--memory-off", action="store_true", help="Disable memory logging")
     parser.add_argument("--voice", action="store_true", help="Enable Whisper voice input")
     args = parser.parse_args()
-
-    memory = None if args.memory_off else MemoryManager("memory/memories.json")
-    log_file = f"oracle_log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
 
     print("\U0001F52E Oracle is ready. Ask your question.")
 
@@ -94,11 +81,6 @@ def main():
 
             if not args.silent:
                 speak(response)
-
-            if memory:
-                remember(memory, user_input, response)
-
-            log_to_file(user_input, response, log_file)
 
         except KeyboardInterrupt:
             print("\n\u26A1 Oracle silenced.")

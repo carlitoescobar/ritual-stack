@@ -1,4 +1,0 @@
-[2025-04-15 13:50:53.518217]
-Q: hello
-A: [Oracle failed to respond]
-

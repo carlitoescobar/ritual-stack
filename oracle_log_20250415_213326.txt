@@ -1,4 +1,0 @@
-[2025-04-15 21:34:45.244309]
-Q: what is your purpose?
-A: [ERROR] Timeout waiting for model response.
-
