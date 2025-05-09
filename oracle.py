@@ -4,50 +4,46 @@ import argparse
 import subprocess
 import time
 import sys
+import requests
 from memory.memory_manager import MemoryManager
 
-# Updated model path for Dolphin Llama 3
-MODEL_PATH = "models/dolphin_llama3_quantized.gguf"
-from llama_cpp import Llama
-
-# Initialize Llama model for streaming
-llm = Llama(
-    model_path=MODEL_PATH,
-    n_ctx=2048,
-    n_threads=12,
-    n_batch=512,
-    verbose=False,
-    chat_format="dolphin-instruct"
-)
-
-def ask_llama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
+def ask_ollama(prompt, max_tokens: int = 64, temperature: float = 1.0) -> str:
     """
-    Stream tokens from the Llama model for the given prompt.
+    Send a prompt to the Ollama API and stream the response.
     Returns the full response text.
     """
     try:
         response = ""
-        # Begin streaming chat completion
-        for event in llm.create_chat_completion(
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": prompt.strip()}
-            ],
-            max_tokens=max_tokens,
-            temperature=temperature,
-            stream=True,
-        ):
-            # Extract token content
-            token = event.get("choices", [{}])[0].get("delta", {}).get("content", "")
-            if token:
-                print(token, end="", flush=True)
-                response += token
-                # Add a spinner effect
-                sys.stdout.write("\r" + " " * 50 + "\r")
-                sys.stdout.write("Thinking... " + "|/-\\"[int(time.time() * 4) % 4])
-                sys.stdout.flush()
+        # Prepare the request to the Ollama API
+        url = "http://localhost:11434/api/generate"
+        data = {
+            "model": "dolphin-llama3:8b-256k-v2.9-q2_K",
+            "prompt": prompt.strip(),
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+            "stream": True
+        }
+        # Send the request and stream the response
+        with requests.post(url, json=data, stream=True) as r:
+            for line in r.iter_lines():
+                if line:
+                    json_response = json.loads(line)
+                    token = json_response.get("response", "")
+                    if token:
+                        print(token, end="", flush=True)
+                        response += token
+                        # Add a spinner effect
+                        sys.stdout.write("\r" + " " * 50 + "\r")
+                        sys.stdout.write("Thinking... " + "|/-\\"[int(time.time() * 4) % 4])
+                        sys.stdout.flush()
+            # Clear the spinner after response is complete
+            sys.stdout.write("\r" + " " * 50 + "\r")
+            sys.stdout.flush()
         return response or "[Oracle returned no response]"
     except Exception as e:
+        # Clear the spinner in case of error
+        sys.stdout.write("\r" + " " * 50 + "\r")
+        sys.stdout.flush()
         return f"[ERROR] Exception occurred: {str(e)}"
 
 def speak(text):
@@ -89,7 +85,7 @@ def main():
 
             # Stream and display Oracle response
             print("\nOracle: ", end="", flush=True)
-            response = ask_llama(user_input)
+            response = ask_ollama(user_input)
             # Ensure newline after streaming tokens
             print()
 
