@@ -3,8 +3,7 @@
 import sys
 import os
 import tempfile
-import sounddevice as sd
-import numpy as np
+import pygame
 from piper import PiperVoice
 
 def say(text):
@@ -27,14 +26,19 @@ def say(text):
         with open(temp_file.name, 'wb') as f:
             voice.synthesize(text, f)
         
-        # Read the WAV file and play it
-        import wave
-        with wave.open(temp_file.name, 'rb') as wf:
-            # Get the audio data
-            audio_data = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16)
-            # Play the audio
-            sd.play(audio_data, wf.getframerate())
-            sd.wait()  # Wait until audio is finished playing
+        # Initialize pygame mixer
+        pygame.mixer.init()
+        
+        # Load and play the audio
+        pygame.mixer.music.load(temp_file.name)
+        pygame.mixer.music.play()
+        
+        # Wait for the audio to finish playing
+        while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
+        
+        # Clean up pygame
+        pygame.mixer.quit()
         
         # Clean up the temporary file
         os.unlink(temp_file.name)
