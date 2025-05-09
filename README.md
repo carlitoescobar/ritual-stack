@@ -1,17 +1,37 @@
-# 🧙 The Oracle [0racle-01]
+# Updated Oracle Stack
+
+This project has been updated to move away from the base llama.cpp application. Instead, we now use a quantized Dolphin Llama 3 model that is uncensored and unbiased, integrated with Ollama and AnythingLLM as the base for Oracle.
+
+## Overview
+
+- **Dolphin Llama 3**: A quantized, uncensored, and unbiased model. The uncensored version allows for unrestricted content generation.
+- **Ollama**: Used for model serving and inference.
+- **AnythingLLM**: Provides additional capabilities and integration.
+
+## Installation
+
+Please refer to the updated installation instructions in the `scripts/` directory.
+
+## Usage
+
+Detailed usage instructions will be provided in the documentation.
+
+---
+
+## 🧙 The Oracle [0racle-01]
 > A self-contained, cyberpunk-inspired intelligence node for the prepared technomancer. Built from bare metal. Fueled by silence. Whispering secrets in synthetic tongues.
 
 ---
 
 ## 📜 Lore
 
-**The Oracle** is the central pillar of Oracle’s Ritual Stack — a vertical cyberdeck designed to serve as a local AI librarian, assistant, and archivist. Forged with minimal dependencies, hardened for offline operation, and empowered by LLMs, voice synthesis, transcription, and memory.  
+**The Oracle** is the central pillar of Oracle's Ritual Stack — a vertical cyberdeck designed to serve as a local AI librarian, assistant, and archivist. Forged with minimal dependencies, hardened for offline operation, and empowered by LLMs, voice synthesis, transcription, and memory.  
 
 - ⚡ Built around the [Beelink SER5 Pro Mini PC](https://www.bee-link.com/)
 - 🧠 Runs `llama.cpp`, `whisper.cpp`, and `piper` locally
 - 🎙️ Features voice input/output (Whisper + Piper)
 - 🧾 Persists memory in JSON (training-ready later)
-- 🖥️ Displays on a 7.9” Waveshare vertical panel
+- 🖥️ Displays on a 7.9" Waveshare vertical panel
 - 🧩 Modular snap-fit 3D-printed monolith chassis (A1 Mini compatible)
 
 ---
@@ -62,7 +82,7 @@ python3 oracle.py
 
 ## 🧼 Banishing Ritual
 
-To teardown the stack and erase the Oracle’s presence:
+To teardown the stack and erase the Oracle's presence:
 
 ```bash
 chmod +x scripts/banish.sh
