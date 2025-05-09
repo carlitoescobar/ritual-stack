@@ -3,7 +3,8 @@
 import sys
 import os
 import tempfile
-import subprocess
+import sounddevice as sd
+import numpy as np
 from piper import PiperVoice
 
 def say(text):
@@ -26,8 +27,14 @@ def say(text):
         with open(temp_file.name, 'wb') as f:
             voice.synthesize(text, f)
         
-        # Play the audio using aplay
-        subprocess.run(['aplay', temp_file.name], check=True)
+        # Read the WAV file and play it
+        import wave
+        with wave.open(temp_file.name, 'rb') as wf:
+            # Get the audio data
+            audio_data = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16)
+            # Play the audio
+            sd.play(audio_data, wf.getframerate())
+            sd.wait()  # Wait until audio is finished playing
         
         # Clean up the temporary file
         os.unlink(temp_file.name)
